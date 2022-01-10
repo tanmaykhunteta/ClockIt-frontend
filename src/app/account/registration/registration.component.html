@@ -1,0 +1,69 @@
+<mat-card>
+  <mat-card-title>
+    <h1>User Registration</h1>
+  </mat-card-title>
+  <div class="alert alert-success" *ngIf="dataSaved">
+  {{massage}}
+  </div>
+  <mat-card-content>
+  <form [formGroup]="regForm" (ngSubmit)="onSubmit()" class="example-form" >
+  <table class="example-full-width" cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <label for="name">Name: <span>*</span></label>
+          <div>
+            <input id="name" formControlName="Name" type="text" matInput>
+            <mat-error *ngIf="!regForm.get('Name').valid  &amp;&amp; regForm.get('Name').touched">Name is required</mat-error>
+          </div> 
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <label for="email">Email: <span>*</span></label>
+          <div>
+            <input type="email" id="email" formControlName="Email" matInput>
+            <span *ngIf="!regForm.get('Email').valid  &amp;&amp; regForm.get('Email').touched">Email is required</span>
+          </div>
+          <div *ngIf="regForm.get('Email').errors?.['pattern']"> 
+            Email is not valid.
+          </div>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <label for="password">Password: <span>*</span></label>
+          <div>
+            <input type="password" matInput id="password" formControlName="Password">
+            <span *ngIf="!regForm.get('Password').valid  &amp;&amp; regForm.get('Password').touched">Password is required</span>
+          </div>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field class="example-full-width">
+          <label for="confirm_password"> Confirm Password: <span>*</span></label>
+          <div>
+            <input type="password" matInput id="confirm_password" formControlName="confirmPassword">
+            <span *ngIf="!regForm.get('confirmPassword').valid  &amp;&amp; regForm.get('confirmPassword').touched">Password is required</span>
+          </div>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div *ngIf="regForm.get('confirmPassword').errors?.['confirmPasswordValidator']">Passwords does not match.</div>
+        </td>
+    </tr>
+  </table>
+  <mat-card-actions>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!regForm.valid">Submit </button>
+  </mat-card-actions>
+</form>
+</mat-card-content>
+</mat-card>
